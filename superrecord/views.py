@@ -119,7 +119,7 @@ class SearchExpensesView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['expense_list'] = Expenses.objects.filter(name__icontains=self.request.GET.get('q', None))
+        context['expense_list'] = Expenses.objects.filter(description__icontains=self.request.GET.get('q', None))
         return context
     
 @method_decorator(login_required, name='dispatch')
