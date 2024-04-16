@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from helpers import graphs as graph_view
 from . import views as main_view
 from stocks import views
-from django.conf.urls import url
+from django.urls import re_path as url
 
 
 urlpatterns = [
@@ -15,8 +15,8 @@ urlpatterns = [
     path('', main_view.IndexView.as_view(), name='index'),
     path('reports/', main_view.AccountReportView.as_view(), name='reports'),
     path('reports/accounts/', main_view.AccountListView.as_view(), name='accounts'),
-    path('reports/roles/', main_view.RolesListView.as_view(), name='roles'),
-    path('reports/stocks/', main_view.StocksListView.as_view(), name='stock_list'),
+    path('reports/roles/', main_view.RoleListView.as_view(), name='roles'),
+    path('reports/stocks/', main_view.StockListView.as_view(), name='stock_list'),
     path('reports/purchases/', main_view.PurchaseListView.as_view(), name='purchases_list'),
     path('reports/sales/', main_view.SalesListView.as_view(), name='sales_list'),
     path('reports/categories/', main_view.CategoryListView.as_view(), name='categories'),
@@ -28,7 +28,7 @@ urlpatterns = [
     path('purchases/', include('purchase.urls')),
     path('sales/', include('sales.urls')),
     path('expenses/', include('expenses.urls')),
-    path('transactions/', main_view.TransactionsView.as_view(), name='transactions'),
+    path('transactions/', main_view.TransactionView.as_view(), name='transactions'),
     path('graphs/roles/', graph_view.roles_graph, name='roles_data'),
     path('graphs/stocks/', graph_view.stocks_graph, name='stocks_data'),
     path('graphs/sales/', graph_view.sales_graph, name='sales_data'),

@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import (ListView, UpdateView, DetailView, DeleteView, CreateView )
 from company.models import Company
 from stocks.models import Product
-from .forms import SalesCreationForm, EditSalesForm
+from .forms import SalesCreationForm, SalesEditForm
 from .models import Sales
 from accounts.models import User
 from easy_pdf.views import PDFTemplateView
@@ -68,7 +68,7 @@ class SalesCreationView(CreateView, ListView):
 class EditSalesView(UpdateView, DetailView):
     template_name = 'sales/edit_sale.html'
     pk_url_kwarg = 'id'
-    form_class = EditSalesForm
+    form_class = SalesEditForm
     queryset = Sales.objects.all()
     success_url = reverse_lazy('transactions')
 

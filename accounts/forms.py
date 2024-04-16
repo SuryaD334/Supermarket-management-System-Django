@@ -50,7 +50,7 @@ class UserRegisterForm(forms.ModelForm):
     
     class Meta:
         model = User
-        fields = ['username','email','password1','password2']
+        fields = ['username','email','password']
         
 class EditProfileForm(forms.ModelForm):
     

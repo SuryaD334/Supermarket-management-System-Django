@@ -1,7 +1,7 @@
 from django import forms
 from sales.models import Sales
 
-class SalesCreationForm(forms.Modelform):
+class SalesCreationForm(forms.ModelForm):
     
     class Meta:
         model = Sales
