@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'company',
     'accounts',
     'crispy_forms',
+    'crispy_bootstrap4',
     'stocks',
     'purchase',
     'sales',
