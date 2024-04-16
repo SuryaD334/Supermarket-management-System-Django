@@ -4,4 +4,4 @@ from stocks import models
 
 # Register your models here.
 admin.register(stocks)
-admin.site.register(models.Products)
+admin.site.register(models.Product)
