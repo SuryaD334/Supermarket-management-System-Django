@@ -3,7 +3,7 @@ from company.models import Company
 
 
 def generate_report(context, dataset, title):
-    comp = Company.objects.values('name', 'address', 'company_tel')[0]
+    comp = Company.objects.values('name', 'address', 'company_tel')
     company_name = comp['name'].upper()
     address = comp['address']
     tel = comp['company_tel']

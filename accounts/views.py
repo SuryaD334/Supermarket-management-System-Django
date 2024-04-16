@@ -210,7 +210,7 @@ class Home(ListView):
         context['purchases'] = len(Purchase.objects.all())
         context['category'] = len(ExpenseCategory.objects.all())
         context['expenses'] = len(Expenses.objects.all())
-        context['company'] = Company.objects.all().values()[0]
+        context['company'] = Company.objects.all().values()
 
         return context
 
