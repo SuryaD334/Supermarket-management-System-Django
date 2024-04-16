@@ -7,6 +7,8 @@ from .forms import (UserRegisterForm, EditProfileForm,RoleCreationForm, EditRole
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.models import Group
+from django.contrib import auth
+from django.shortcuts import render
 from company.models import Company
 from .models import User, Role
 from stocks.models import Product
@@ -240,3 +242,7 @@ class AccountPDFView(PDFTemplateView):
             data['groups'] = Role.objects.get(id=data['groups'])
 
         return generate_report(context, dataset, 'Accounts List')
+    
+def logout_view(request):
+    auth.logout(request)
+    return render(request, 'accounts/logout.html',{})
