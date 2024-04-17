@@ -1,8 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-from django.views.generic import (
-    ListView, UpdateView, DetailView, DeleteView, CreateView )
+from django.views.generic import (ListView, UpdateView, DetailView, DeleteView, CreateView )
 from .forms import PurchaseCreationForm, EditPurchaseForm
 from .models import Purchase
 from decorators.decorators import group_required

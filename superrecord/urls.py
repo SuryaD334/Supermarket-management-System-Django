@@ -10,8 +10,6 @@ from django.urls import re_path as url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^api/stocks/$', views.stocks_list),
-    re_path(r'^api/stocks/(?P<pk>[0-9]+)$', views.stocks_detail),
     path('', main_view.IndexView.as_view(), name='index'),
     path('reports/', main_view.AccountReportView.as_view(), name='reports'),
     path('reports/accounts/', main_view.AccountListView.as_view(), name='accounts'),

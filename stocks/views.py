@@ -8,45 +8,61 @@ from .models import Product
 from .serializers import *
 from decorators.decorators import group_required
 from helpers.generate_pdf import generate_report
-from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status, generics
+from easy_pdf.views import PDFTemplateView
 
 
 # Create your views here.
-@api_view(['GET','POST'])
-def stocks_list(request):
-    if request.method == 'GET':
-        data = Product.objects.all()
-        serializer = ProductSerializer(data, context = {'request':request},many = True)
-        return Response(serializer.data)
-    
-    elif request.method == 'POST':
-        serializer = ProductSerializer(data = request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-@api_view(['PUT', 'DELETE'])
-def stocks_detail(request, pk):
-    try:
-        product = Product.objects.get(pk=pk)
-    except Product.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+decorators = [group_required(['Admin','Manager','General Manager'])]
 
-    if request.method == 'PUT':
-        serializer = ProductSerializer(product, data=request.data,context={'request': request})
-        if serializer.is_valid():
-          serializer.save()
-          return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        product.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+@method_decorator(decorators,name="dispatch")
+class ProductListView(ListView):
+    queryset = Product.objects.all().order_by('id')
+    paginate_by = 10
+    context_object_name = 'product_list'
+    template_name = 'stocks/products.html'
     
+    
+@method_decorator(decorators, name='dispatch')
+class ProductCreationView(CreateView):
+    form_class = ProductCreationForm
+    template_name = 'stocks/add_product.html'
+    success_message = 'Success: Product creation succeeded.'
+    success_url = reverse_lazy('setting')
+
+    def post(self, request, *args, **kwargs):
+        data = {
+            'name': request.POST.get('name', None),
+            'description': request.POST.get('description', None),
+            'quantity': request.POST.get('quantity', 0),
+            'unit_price': request.POST.get('unit_price', 0),
+            'stock_level': request.POST.get('stock_level', 0),
+            'created_by': request.user.id
+        }
+        if request.method == 'POST':
+            form = self.form_class(data)
+
+            if form.is_valid():
+                form.save()
+
+                return HttpResponseRedirect(self.success_url)
+
+        return super().post(request, *args, **kwargs)
+    
+@method_decorator(decorators, name='dispatch')
+class EditProductView(UpdateView, DetailView):
+    template_name = 'stocks/edit_product.html'
+    pk_url_kwarg = 'id'
+    form_class = EditProductForm
+    queryset = Product.objects.all()
+    success_url = reverse_lazy('setting')
+
+@method_decorator(decorators, name='dispatch')
+class DeleteProductView(DeleteView):
+    template_name = 'stocks/delete_product.html'
+    pk_url_kwarg = 'id'
+    queryset = Product.objects.all()
+    success_url = reverse_lazy('setting')
+
 class ProductPDFView(PDFTemplateView):
     template_name = 'stocks/product_report.html'
     
