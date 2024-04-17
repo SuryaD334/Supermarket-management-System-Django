@@ -104,23 +104,23 @@ class CategoryListView(ListView):
 class ExpensesListView(ListView):
     queryset = Expenses.objects.all().order_by('id')
     paginate_by = 10
-    context_object_name = 'expense_list'
+    context_object_name = 'expenses_list'
     template_name = 'reports/expenses.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['expense_list'] = self.queryset
+        context['expenses_list'] = self.queryset
         return context
     
 class SearchExpensesView(ListView):
     queryset = Expenses.objects.all().order_by('id')
     paginate_by = 10
-    context_object_name = 'expense_list'
+    context_object_name = 'expenses_list'
     template_name = 'reports/expenses.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['expense_list'] = Expenses.objects.filter(description__icontains=self.request.GET.get('q', None))
+        context['expenses_list'] = Expenses.objects.filter(description__icontains=self.request.GET.get('q', None))
         return context
     
 @method_decorator(login_required, name='dispatch')

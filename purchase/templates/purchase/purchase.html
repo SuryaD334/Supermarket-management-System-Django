@@ -49,26 +49,31 @@
                 <div class="col-1 pl-4">Action</div>
             </div>
             {% for purchase in purchase_list %}
-                <div class="parent">
-                    <div class="row highlight bg-light mb-2 py-2">
-                        <div class="col-2 pl-3">{{ purchase.name }}</div>
-                        <div class="col-3 px-0">{{ purchase.description }}</div>
-                        <div class="col-1 pl-2">{{ purchase.quantity }}</div>
-                        <div class="col-1 px-0">{{ purchase.cost_price }}</div>
-                        <div class="col-1 px-0">{{ purchase.current_stock_level }}</div>
-                        <div class="col-1 px-0">{{ purchase.total_stock_level }}</div>
-                        <div class="col-2 px-0">+{{ purchase.supplier_tel }}</div>
-                        <div class="col-1 px-0">
-                            <a class="btn btn-sm"
+            <div class="parent">
+                <div class="row highlight bg-light mb-2 py-2 d-flex align-items-center">
+                    <div class="col-2 pl-3">{{ purchase.name }}</div>
+                    <div class="col-2 px-0">{{ purchase.description }}</div>
+                    <div class="col-1 pl-2">{{ purchase.quantity }}</div>
+                    <div class="col-1 px-0">{{ purchase.cost_price }}</div>
+                    <div class="col-1 px-0">{{ purchase.current_stock_level }}</div>
+                    <div class="col-1 px-0">{{ purchase.total_stock_level }}</div>
+                    <div class="col-2 px-0">+{{ purchase.supplier_tel }}</div>
+                    <div class="col-1 px-0 d-flex">
+                        <div class="mr-2">
+                            <a class="btn btn-sm btn-info"
                                 title="Edit Purchase"
                                 href="{% url 'edit_purchase' purchase.id %}"
                                 rel="modal:open"><i class="fa fa-edit mr-1"></i>Edit</a>
-                            <a class="btn btn-sm text-danger"
-                                title="Delete Purchase"
-                                href="{% url 'delete_purchase' purchase.id %}"
-                                rel="modal:open"><i class="fa fa-trash mr-1"></i>Delete</a></div>
+                        </div>
+                        <a class="btn btn-sm btn-danger"
+                            title="Delete Purchase"
+                            href="{% url 'delete_purchase' purchase.id %}"
+                            rel="modal:open"><i class="fa fa-trash mr-1"></i>Delete</a>
                     </div>
                 </div>
+            </div>
+            
+            
             {% endfor %}
 
             <div id="page" class="pagination justify-content-end mt-4"> 

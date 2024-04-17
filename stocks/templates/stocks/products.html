@@ -40,32 +40,38 @@
         {% else %}
             <div class="row text-muted border-bottom mb-2">
                 <div class="col-2 pl-5">Name</div>
-                <div class="col-5 px-0">Description</div>
-                <div class="col-1 px-0">Quantity</div>
-                <div class="col-1 px-0">Unit Price</div>
+                <div class="col-3 px-0">Description</div>
+                <div class="col-2 px-0">Quantity</div>
+                <div class="col-2 px-0">Unit Price</div>
                 <div class="col-1 px-0">Stock Level</div>
                 <div class="col-2 pl-4">Action</div>
             </div>
 
             {% for product in product_list %}
-                <div class="parent">
-                    <div class="row highlight bg-light mb-2 py-2">
-                        <div class="col-2 pl-5">{{ product.name }}</div>
-                        <div class="col-5 px-0">{{ product.description }}</div>
-                        <div class="col-1 px-0">{{ product.quantity }}</div>
-                        <div class="col-1 px-0">{{ product.unit_price }}</div>
-                        <div class="col-1 px-0">{{ product.stock_level }}</div>
-                        <div class="col-2 px-0">
-                            <a class="btn btn-sm"
-                                title="Edit Product"
-                                href="{% url 'edit_product' product.id %}"
-                                rel="modal:open"><i class="fa fa-edit mr-1"></i>Edit</a>
-                            <a class="btn btn-sm text-danger"
+            <div class="parent">
+                <div class="row highlight bg-light mb-2 py-2 d-flex align-items-center">
+                    <div class="col-2 pl-5">{{ product.name }}</div>
+                    <div class="col-3 px-0">{{ product.description }}</div>
+                    <div class="col-2 px-0">{{ product.quantity }}</div>
+                    <div class="col-2 px-0">{{ product.unit_price }}</div>
+                    <div class="col-1 px-0">{{ product.stock_level }}</div>
+                    <div class="col-2 px-0">
+                        <div class="d-flex">
+                            <div class="mr-2">
+                                <a class="btn btn-sm btn-info"
+                                    title="Edit Product"
+                                    href="{% url 'edit_product' product.id %}"
+                                    rel="modal:open"><i class="fa fa-edit mr-1"></i>Edit</a>
+                            </div>
+                            <a class="btn btn-sm btn-danger"
                                 title="Delete Product"
                                 href="{% url 'delete_product' product.id %}"
-                                rel="modal:open"><i class="fa fa-trash mr-1"></i>Delete</a></div>
+                                rel="modal:open"><i class="fa fa-trash mr-1"></i>Delete</a>
+                        </div>
                     </div>
                 </div>
+            </div>
+            
             {% endfor %}
 
             <div id="page" class="pagination justify-content-end mt-4"> 

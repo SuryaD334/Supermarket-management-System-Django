@@ -9,6 +9,10 @@
 <div class="container my-2">
     <div class="row navbar navbar-light mb-3 text-monospace ">
         <h5 class="text-uppercase font-weight-lighter">Expenses List</h5>
+        <a class="nav-link border border-primary px-3 py-2 text-primary"
+            href="{% url 'expense' %}"
+            title="Add New Expense"
+            rel="modal:open"><i class="fa fa-plus mr-1"></i>New Expense</a>
     </div>
     <!-- Modal -->
     <div class="modal fade" tabindex="-1" role="dialog" id="modal" style="z-index: 50px">
@@ -38,16 +42,29 @@
                 <div class="col-3 px-0">Date of Expense</div>
             </div>
             {% for expense in expenses %}
-                <div class="parent">
-                    <div class="row highlight bg-light mb-2 py-2">
-                        <div class="col-2 pl-3">{{ expense.category }}</div>
-                        <div class="col-3 px-0">{{ expense.description }}</div>
-                        <div class="col-2 pl-2">{{ expense.amount }}</div>
-                        <div class="col-2 px-0">{{ expense.created_by }}</div>
-                        <div class="col-3 px-0">{{ expense.created_at }}</div>
+            <div class="parent">
+                <div class="row highlight bg-light mb-2 py-2 d-flex align-items-center">
+                    <div class="col-2 pl-3">{{ expense.category }}</div>
+                    <div class="col-3 px-0">{{ expense.description }}</div>
+                    <div class="col-2 pl-2">{{ expense.amount }}</div>
+                    <div class="col-2 px-0">{{ expense.created_by }}</div>
+                    <div class="col-3 px-0">
+                        <span class="mr-2">
+                            <a class="btn btn-sm btn-info"
+                                title="Edit Expense"
+                                href="{% url 'edit_expense' expense.id %}"
+                                rel="modal:open"><i class="fa fa-edit mr-1"></i>Edit</a>
+                        </span>
+                        <a class="btn btn-sm btn-danger"
+                            title="Delete Expense"
+                            href="{% url 'delete_expense' expense.id %}"
+                            rel="modal:open"><i class="fa fa-trash mr-1"></i>Delete</a>
                     </div>
                 </div>
+            </div>
+              
             {% endfor %}
+    </div>
             <div id="page" class="pagination justify-content-end mt-4"> 
                 <span class="step-links">
                     <span>

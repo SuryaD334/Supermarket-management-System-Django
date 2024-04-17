@@ -14,15 +14,15 @@
     <div class="text-monospace">
         <div class="row text-muted border-bottom mb-2">
             <div class="col-3 pl-5">Role</div>
-            <div class="col-7 px-0">Description</div>
-            <div class="col-2 px-0">Total Users</div>
+            <div class="col-5 px-0">Description</div>
+            <div class="col-4 px-0">Total Users</div>
         </div>
         {% for role in roles %}
             <div class="parent">
                 <div class="row highlight bg-light mb-2 py-2">
                     <div class="col-3 pl-5">{{ role.name }}</div>
-                    <div class="col-7 px-0">{{ role.description }}</div>
-                    <div class="col-2 px-0">{{ role.user_set.count }}</div>
+                    <div class="col-5 px-0">{{ role.description }}</div>
+                    <div class="col-4 px-0">{{ role.user_set.count }}</div>
                 </div>
             </div>
         {% endfor %}

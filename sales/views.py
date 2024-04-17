@@ -41,28 +41,30 @@ class SalesCreationView(CreateView, ListView):
         return context
 
     def post(self, request, *args, **kwargs):
-
         if request.method == 'POST' and request.POST.get('item'):
-            sale = Product.objects.filter(name=request.POST.get('item')).values()[0]
-            data = {
-                'name': sale['name'],
-                'item': int(sale['id']),
-                'quantity': request.POST.get('quantity', 0),
-                'unit_price': float(sale['unit_price']),
-                'total_amount': float(int(request.POST.get('quantity', 0)) * float(
-                    sale['unit_price'])),
-                'sold_by': request.user.id
-            }
-            form = self.form_class(data)
-            form.name=sale['name']
-            form.unit_price=[]
+            sale = Product.objects.filter(name=request.POST.get('item')).values()
+            if sale:
+                sale_data = sale[0]
+                data = {
+                    'name': sale_data['name'],
+                    'item': int(sale_data['id']),
+                    'quantity': request.POST.get('quantity', 0),
+                    'unit_price': float(sale_data['unit_price']),
+                    'total_amount': float(int(request.POST.get('quantity', 0)) * float(sale_data['unit_price'])),
+                    'sold_by': request.user.id
+                }
+                form = self.form_class(data)
+                form.name = sale_data['name']
+                form.unit_price = []  
 
-            if form.is_valid():
-                form.save()
-
-                return HttpResponseRedirect(self.success_url)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(self.success_url)
+            else:
+                print("Product not found with the name:", request.POST.get('item'))
 
         return super().post(request, *args, **kwargs)
+
 
 @method_decorator(login_required, name="dispatch")
 class EditSalesView(UpdateView, DetailView):

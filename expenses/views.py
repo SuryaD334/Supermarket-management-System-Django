@@ -62,7 +62,7 @@ class DeleteCategoryView(DeleteView):
 
 @method_decorator(login_required, name="dispatch")
 class ExpensesListView(ListView):
-    queryset = Expenses.objects.all().order_by('-id')
+    queryset = Expenses.objects.all().order_by('id')
     paginate_by = 10
     context_object_name = 'expenses'
     template_name = 'expenses/expenses.html'
@@ -72,7 +72,7 @@ class ExpenseCreationView(CreateView):
     form_class = ExpenseCreationForm
     template_name = 'expenses/add_expense.html'
     success_message = 'Success: Expense creation succeeded.'
-    success_url = reverse_lazy('transactions')
+    success_url = reverse_lazy('setting')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -101,17 +101,17 @@ class ExpenseCreationView(CreateView):
 @method_decorator(decorators, name='dispatch')
 class EditExpenseView(UpdateView, DetailView):
     template_name = 'expenses/edit_expense.html'
-    pk_url_kwarg = ['id']
+    pk_url_kwarg = 'id'
     form_class = EditExpenseForm
     queryset = Expenses.objects.all()
-    success_url = reverse_lazy('transactions')
+    success_url = reverse_lazy('setting')
 
 @method_decorator(decorators, name='dispatch')
 class DeleteExpenseView(DeleteView):
     template_name = 'expenses/delete_expense.html'
     pk_url_kwarg = 'id'
     queryset = Expenses.objects.all()
-    success_url = reverse_lazy('transactions')
+    success_url = reverse_lazy('setting')
 
 class ExpensesPDFView(PDFTemplateView):
     template_name = 'expenses/expenses_report.html'
