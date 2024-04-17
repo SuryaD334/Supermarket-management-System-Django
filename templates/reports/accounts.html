@@ -27,7 +27,7 @@
     <img id="user_logo" src="/media/{{ logo1.png }}" alt="{{ company.name }}">
     <div class="row navbar navbar-light mb-3 text-monospace">
         <h5 class="text-uppercase font-weight-lighter">User Accounts</h5>
-        {% if account_list %}  
+        {% if accounts_list %}  
             <div class="form-row">
                 <div class="col col-md-8">
                     <input type="text" name="search" class="form-control" placeholder="Enter search username" oninput="search(this.value)"> 
@@ -41,7 +41,7 @@
                 title="Accounts Report"><i class="fa fa-file-pdf-o mr-1"></i>Export</a>    
         {% endif %}
     </div>
-    {% if not account_list %}
+    {% if not accounts_list %}
         <div class="d-flex text-monospace justify-content-center">
             <p class="">No records found! <br /><br />
             <button type="button" class="btn btn-outline-primary">Clear Filter</button>

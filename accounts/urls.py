@@ -1,10 +1,11 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from accounts import views as user_views
+from stocks import views as st_view
 
 urlpatterns = [
     path('home/', user_views.Home.as_view(), name='home'),
-    path('user/', user_views.UserListView.as_view(), name='get_context_data'),
+    path('user/', user_views.UserListView.as_view(), name='user'),
     path('roles/', user_views.RoleListView.as_view(), name='roles'),
     path('role/', user_views.RoleCreationView.as_view(), name='role'),
     path('edit_role/<int:id>/', user_views.EditRoleView.as_view(), name='edit_role'),
@@ -17,5 +18,5 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('logout/', user_views.logout_view, name='logout_view'),
     path('setting/', user_views.Setting.as_view(), name='setting'),
-    path('account_report/', user_views.AccountPDFView.as_view(), name='account_report')
+    path('account_report/', user_views.AccountPDFView.as_view(), name='account_report'),
 ]

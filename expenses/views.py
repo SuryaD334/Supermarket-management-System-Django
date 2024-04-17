@@ -83,7 +83,7 @@ class ExpenseCreationView(CreateView):
 
     def post(self, request, *args, **kwargs):
         data = {
-            'category': int(request.POST.get('category', 0)),
+            'category': request.POST.get('category', 0),
             'description': request.POST.get('description', None),
             'amount': request.POST.get('amount', 0),
             'created_by': request.user.id
@@ -101,7 +101,7 @@ class ExpenseCreationView(CreateView):
 @method_decorator(decorators, name='dispatch')
 class EditExpenseView(UpdateView, DetailView):
     template_name = 'expenses/edit_expense.html'
-    pk_url_kwarg = 'id'
+    pk_url_kwarg = ['id']
     form_class = EditExpenseForm
     queryset = Expenses.objects.all()
     success_url = reverse_lazy('transactions')

@@ -20,11 +20,12 @@ class AccountListView(ListView):
     queryset = User.objects.all().order_by('id')
     paginate_by = 10
     context_object_name = 'accounts_list'
-    template_name = 'reports/acounts.html'
+    template_name = 'reports/accounts.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['company'] = Company.objects.all().values()[0]
+        context['company'] = Company.objects.all().values()
+        context['accounts_list'] = self.queryset
         return context
     
 class SearchUserView(ListView):
@@ -108,7 +109,7 @@ class ExpensesListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['expense_list'] = Company.objects.all().values()[0]
+        context['expense_list'] = self.queryset
         return context
     
 class SearchExpensesView(ListView):

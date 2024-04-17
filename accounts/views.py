@@ -224,7 +224,7 @@ class Setting(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['company'] = Company.objects.all()
-
+        context['stocks_list'] = Product.objects.all().values()
         return context
 
 class AccountPDFView(PDFTemplateView):
