@@ -4,7 +4,7 @@ from accounts import views as user_views
 
 urlpatterns = [
     path('home/', user_views.Home.as_view(), name='home'),
-    path('user/', user_views.UserListView.as_view(), name='user'),
+    path('user/', user_views.UserListView.as_view(), name='get_context_data'),
     path('roles/', user_views.RoleListView.as_view(), name='roles'),
     path('role/', user_views.RoleCreationView.as_view(), name='role'),
     path('edit_role/<int:id>/', user_views.EditRoleView.as_view(), name='edit_role'),

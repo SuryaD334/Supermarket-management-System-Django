@@ -21,6 +21,7 @@ from easy_pdf.views import PDFTemplateView
 from helpers.generate_pdf import generate_report
 
 decorators = [group_required(['Admin','Manager','General Manager'])]
+
 @method_decorator(decorators, name='dispatch')
 class UserListView(ListView):
     queryset = User.objects.all().order_by('id')
@@ -32,7 +33,7 @@ class UserListView(ListView):
         context = super().get_context_data(**kwargs)
         context['company'] = Company.objects.all().values()[0]
 
-        return context
+        return render(self.request, 'accounts/user.html', context)
 
 @method_decorator(login_required, name='dispatch')
 class EditProfileView(UpdateView, DetailView):

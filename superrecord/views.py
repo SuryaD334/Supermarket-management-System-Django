@@ -127,7 +127,7 @@ class RoleListView(ListView):
     queryset = Role.objects.all().order_by('id')
     paginate_by = 10
     context_object_name = 'roles'
-    template_name = 'reports/role.html'
+    template_name = 'reports/roles.html'
     
 @method_decorator(login_required, name='dispatch')
 class AnalysisView(TemplateView):
