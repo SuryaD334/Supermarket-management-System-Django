@@ -3,14 +3,11 @@ from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-from django.views.generic import (
-    ListView, UpdateView, DetailView, DeleteView, CreateView)
+from django.views.generic import (ListView, UpdateView, DetailView, DeleteView, CreateView)
 from decorators.decorators import group_required
 from expenses.models import ExpenseCategory, Expenses
 from accounts.models import User
-from expenses.forms import (
-    EditCategoryForm, EditExpenseForm,
-    CategoryCreationForm, ExpenseCreationForm)
+from expenses.forms import (EditCategoryForm, EditExpenseForm, CategoryCreationForm, ExpenseCreationForm)
 from easy_pdf.views import PDFTemplateView
 from helpers.generate_pdf import generate_report
 
